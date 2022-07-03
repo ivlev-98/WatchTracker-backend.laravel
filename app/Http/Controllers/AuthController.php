@@ -19,7 +19,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials))
             return new User(Auth::user());
         else
-            return response()->json(['message' => __('auth.failed')], 401);
+            return response()->json(['errors' => ['password' => [__('auth.failed')]]], 401);
     }
 
     public function register(RegisterRequest $request, ModelsUser $user)
@@ -34,6 +34,8 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials))
             return new User(Auth::user());
+        else
+            return response()->json(['errors' => ['password' => [__('auth.failed')]]], 401);
     }
 
     public function logout(Request $request)
